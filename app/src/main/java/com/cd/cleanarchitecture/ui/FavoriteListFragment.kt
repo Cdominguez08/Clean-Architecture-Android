@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import com.cd.cleanarchitecture.R
 import com.cd.cleanarchitecture.adapters.FavoriteListAdapter
 import com.cd.cleanarchitecture.api.APIConstants.BASE_API_URL
@@ -16,6 +17,7 @@ import com.cd.cleanarchitecture.database.CharacterDao
 import com.cd.cleanarchitecture.database.CharacterDatabase
 import com.cd.cleanarchitecture.database.CharacterEntity
 import com.cd.cleanarchitecture.databinding.FragmentFavoriteListBinding
+import com.cd.cleanarchitecture.presentation.FavoriteListViewModel
 import com.cd.cleanarchitecture.utils.setItemDecorationSpacing
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -26,12 +28,14 @@ class FavoriteListFragment : Fragment() {
 
     //region Fields
 
-    private val disposable = CompositeDisposable()
-
     private lateinit var favoriteListAdapter: FavoriteListAdapter
     private lateinit var listener: OnFavoriteListFragmentListener
     private lateinit var characterRequest: CharacterRequest
     private lateinit var characterDao: CharacterDao
+
+    private val viewModel : FavoriteListViewModel by lazy {
+        FavoriteListViewModel(characterDao)
+    }
 
     //endregion
 
@@ -76,38 +80,25 @@ class FavoriteListFragment : Fragment() {
             setItemDecorationSpacing(resources.getDimension(R.dimen.list_item_padding))
             adapter = favoriteListAdapter
         }
-    }
 
-    override fun onResume() {
-        super.onResume()
+        viewModel.favoriteCharacterList.observe(viewLifecycleOwner, Observer(viewModel::onFavoriteCharacterList))
 
-        disposable.add(
-            characterDao.getAllFavoriteCharacters()
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .subscribe({ characterList ->
-                    if(characterList.isEmpty()) {
-                        tvEmptyListMessage.isVisible = true
-                        favoriteListAdapter.updateData(emptyList())
-                    } else {
-                        tvEmptyListMessage.isVisible = false
-                        favoriteListAdapter.updateData(characterList)
+        viewModel.events.observe(viewLifecycleOwner, Observer {
+            events ->
+                events?.getContentIfNotHandled()?.let {
+                    when(it){
+                        is FavoriteListViewModel.FavoriteListNavigation.ShowCharacterList -> it.run {
+                            tvEmptyListMessage.isVisible = false
+                            favoriteListAdapter.updateData(characterList)
+                        }
+                        FavoriteListViewModel.FavoriteListNavigation.ShowEmptyListMessage -> {
+                            tvEmptyListMessage.isVisible = true
+                            favoriteListAdapter.updateData(emptyList())
+                        }
                     }
-                },{
-                    tvEmptyListMessage.isVisible = true
-                    favoriteListAdapter.updateData(emptyList())
-                })
-        )
+                }
+        })
     }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        disposable.clear()
-    }
-
-    //endregion
-
-    //region Private Methods
 
     //endregion
 
