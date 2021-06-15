@@ -4,15 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.cd.cleanarchitecture.api.*
-import com.cd.cleanarchitecture.ui.CharacterListFragment
-import com.cd.cleanarchitecture.utils.showLongToast
-import io.reactivex.android.schedulers.AndroidSchedulers
+import com.cd.cleanarchitecture.usecases.GetAllCharactersUseCase
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.fragment_character_list.*
 
 class CharacterListViewModel(
-    private val characterRequest : CharacterRequest
+    private val getAllCharactersUseCase: GetAllCharactersUseCase
 ) : ViewModel() {
 
     //Live data de los estados
@@ -62,12 +58,8 @@ class CharacterListViewModel(
 
     fun onGetAllCharacters(){
         disposable.add(
-            characterRequest
-                .getService<CharacterService>()
-                .getAllCharacters(currentPage)
-                .map(CharacterResponseServer::toCharacterServerList)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
+            getAllCharactersUseCase
+                .invoke(currentPage)
                 .doOnSubscribe {
                     _events.value = Event(CharacterListNavigation.ShowLoading)
                 }

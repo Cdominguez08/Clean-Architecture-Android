@@ -6,11 +6,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.cd.cleanarchitecture.database.CharacterDao
 import com.cd.cleanarchitecture.database.CharacterEntity
+import com.cd.cleanarchitecture.usecases.GetAllFavoriteCharactersUseCase
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
 class FavoriteListViewModel(
-    private val characterDao: CharacterDao
+    private val getAllFavoriteCharactersUseCase: GetAllFavoriteCharactersUseCase
 ) : ViewModel() {
 
     sealed class FavoriteListNavigation{
@@ -26,12 +27,7 @@ class FavoriteListViewModel(
 
     private val _favoriteCharacterList : LiveData<List<CharacterEntity>>
     get() = LiveDataReactiveStreams.fromPublisher(
-        characterDao
-            .getAllFavoriteCharacters()
-            .onErrorReturn {
-                emptyList()
-            }
-            .subscribeOn(Schedulers.io())
+        getAllFavoriteCharactersUseCase.invoke()
     )
 
     val favoriteCharacterList : LiveData<List<CharacterEntity>> get() = _favoriteCharacterList

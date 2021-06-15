@@ -18,6 +18,8 @@ import com.cd.cleanarchitecture.database.CharacterDatabase
 import com.cd.cleanarchitecture.database.CharacterEntity
 import com.cd.cleanarchitecture.databinding.FragmentFavoriteListBinding
 import com.cd.cleanarchitecture.presentation.FavoriteListViewModel
+import com.cd.cleanarchitecture.usecases.GetAllFavoriteCharactersUseCase
+import com.cd.cleanarchitecture.utils.getViewModel
 import com.cd.cleanarchitecture.utils.setItemDecorationSpacing
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -31,10 +33,18 @@ class FavoriteListFragment : Fragment() {
     private lateinit var favoriteListAdapter: FavoriteListAdapter
     private lateinit var listener: OnFavoriteListFragmentListener
     private lateinit var characterRequest: CharacterRequest
-    private lateinit var characterDao: CharacterDao
+    private val characterDao: CharacterDao by lazy {
+        CharacterDatabase.getDatabase(activity!!.applicationContext).characterDao()
+    }
+
+    private val getAllFavoriteCharactersUseCase: GetAllFavoriteCharactersUseCase by lazy {
+        GetAllFavoriteCharactersUseCase(characterDao)
+    }
 
     private val viewModel : FavoriteListViewModel by lazy {
-        FavoriteListViewModel(characterDao)
+        getViewModel {
+            FavoriteListViewModel(getAllFavoriteCharactersUseCase)
+        }
     }
 
     //endregion
@@ -56,7 +66,6 @@ class FavoriteListFragment : Fragment() {
     ): View? {
 
         characterRequest = CharacterRequest(BASE_API_URL)
-        characterDao = CharacterDatabase.getDatabase(activity!!.applicationContext).characterDao()
 
         return DataBindingUtil.inflate<FragmentFavoriteListBinding>(
             inflater,

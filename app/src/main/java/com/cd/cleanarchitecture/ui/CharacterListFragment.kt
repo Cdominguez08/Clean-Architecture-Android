@@ -16,6 +16,8 @@ import com.cd.cleanarchitecture.api.*
 import com.cd.cleanarchitecture.api.APIConstants.BASE_API_URL
 import com.cd.cleanarchitecture.databinding.FragmentCharacterListBinding
 import com.cd.cleanarchitecture.presentation.CharacterListViewModel
+import com.cd.cleanarchitecture.usecases.GetAllCharactersUseCase
+import com.cd.cleanarchitecture.utils.getViewModel
 import com.cd.cleanarchitecture.utils.setItemDecorationSpacing
 import com.cd.cleanarchitecture.utils.showLongToast
 import kotlinx.android.synthetic.main.fragment_character_list.*
@@ -27,10 +29,19 @@ class CharacterListFragment : Fragment() {
 
     private lateinit var characterGridAdapter: CharacterGridAdapter
     private lateinit var listener: OnCharacterListFragmentListener
-    private lateinit var characterRequest: CharacterRequest
+
+    private val characterRequest: CharacterRequest by lazy {
+        CharacterRequest(BASE_API_URL)
+    }
+
+    private val getAllCharactersUseCase : GetAllCharactersUseCase by lazy {
+        GetAllCharactersUseCase(characterRequest)
+    }
 
     private val viewModel : CharacterListViewModel by lazy {
-        CharacterListViewModel(characterRequest)
+        getViewModel {
+            CharacterListViewModel(getAllCharactersUseCase)
+        }
     }
 
     private val onScrollListener: RecyclerView.OnScrollListener by lazy {
@@ -68,8 +79,6 @@ class CharacterListFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-
-        characterRequest = CharacterRequest(BASE_API_URL)
 
         return DataBindingUtil.inflate<FragmentCharacterListBinding>(
             inflater,

@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.room.Update
 import com.cd.cleanarchitecture.R
 import com.cd.cleanarchitecture.adapters.EpisodeListAdapter
 import com.cd.cleanarchitecture.api.APIConstants.BASE_API_URL
@@ -15,6 +16,9 @@ import com.cd.cleanarchitecture.database.CharacterDao
 import com.cd.cleanarchitecture.database.CharacterDatabase
 import com.cd.cleanarchitecture.databinding.ActivityCharacterDetailBinding
 import com.cd.cleanarchitecture.presentation.CharacterDetailViewModel
+import com.cd.cleanarchitecture.usecases.GetEpisodeFromCharacterUseCase
+import com.cd.cleanarchitecture.usecases.GetFavoriteCharacterStatusUseCase
+import com.cd.cleanarchitecture.usecases.UpdateFavoriteCharacterStatusUseCase
 import com.cd.cleanarchitecture.utils.Constants
 import com.cd.cleanarchitecture.utils.bindCircularImageUrl
 import com.cd.cleanarchitecture.utils.getViewModel
@@ -36,13 +40,25 @@ class CharacterDetailActivity : AppCompatActivity() {
         CharacterDatabase.getDatabase(application).characterDao()
     }
 
+    private val getEpisodeFromCharacterUseCase : GetEpisodeFromCharacterUseCase by lazy {
+        GetEpisodeFromCharacterUseCase(episodeRequest)
+    }
+
+    private val getFavoriteCharacterStatusUseCase : GetFavoriteCharacterStatusUseCase by lazy{
+        GetFavoriteCharacterStatusUseCase(characterDao)
+    }
+
+    private val updateFavoriteCharacterStatusUseCase : UpdateFavoriteCharacterStatusUseCase by lazy {
+        UpdateFavoriteCharacterStatusUseCase(characterDao)
+    }
 
     private val viewModel : CharacterDetailViewModel by lazy {
         getViewModel {
             CharacterDetailViewModel(
                 intent.getParcelableExtra(Constants.EXTRA_CHARACTER),
-                characterDao,
-                episodeRequest
+                getEpisodeFromCharacterUseCase,
+                getFavoriteCharacterStatusUseCase,
+                updateFavoriteCharacterStatusUseCase
             )
         }
     }
