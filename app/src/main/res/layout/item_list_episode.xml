@@ -5,7 +5,7 @@
     <data>
         <variable
             name="episode"
-            type="com.cd.cleanarchitecture.api.EpisodeServer" />
+            type="com.cd.cleanarchitecture.domain.Episode" />
     </data>
 
     <LinearLayout

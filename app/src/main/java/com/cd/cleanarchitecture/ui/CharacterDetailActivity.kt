@@ -15,6 +15,9 @@ import com.cd.cleanarchitecture.api.EpisodeRequest
 import com.cd.cleanarchitecture.database.CharacterDao
 import com.cd.cleanarchitecture.database.CharacterDatabase
 import com.cd.cleanarchitecture.databinding.ActivityCharacterDetailBinding
+import com.cd.cleanarchitecture.domain.Character
+import com.cd.cleanarchitecture.parcelable.CharacterParcelable
+import com.cd.cleanarchitecture.parcelable.toCharacterDomain
 import com.cd.cleanarchitecture.presentation.CharacterDetailViewModel
 import com.cd.cleanarchitecture.usecases.GetEpisodeFromCharacterUseCase
 import com.cd.cleanarchitecture.usecases.GetFavoriteCharacterStatusUseCase
@@ -55,7 +58,7 @@ class CharacterDetailActivity : AppCompatActivity() {
     private val viewModel : CharacterDetailViewModel by lazy {
         getViewModel {
             CharacterDetailViewModel(
-                intent.getParcelableExtra(Constants.EXTRA_CHARACTER),
+                intent.getParcelableExtra<CharacterParcelable>(Constants.EXTRA_CHARACTER)?.toCharacterDomain(),
                 getEpisodeFromCharacterUseCase,
                 getFavoriteCharacterStatusUseCase,
                 updateFavoriteCharacterStatusUseCase
@@ -135,7 +138,7 @@ class CharacterDetailActivity : AppCompatActivity() {
         )
     }
 
-    private fun loadCharacter(character: CharacterServer){
+    private fun loadCharacter(character: Character){
         binding.characterImage.bindCircularImageUrl(
             url = character.image,
             placeholder = R.drawable.ic_camera_alt_black,

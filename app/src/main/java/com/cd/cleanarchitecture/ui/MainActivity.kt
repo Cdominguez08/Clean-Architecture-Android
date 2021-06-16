@@ -6,15 +6,12 @@ import android.view.MenuItem
 import androidx.viewpager2.widget.ViewPager2
 import com.cd.cleanarchitecture.R
 import com.cd.cleanarchitecture.adapters.HomeNavigationStateAdapter
-import com.cd.cleanarchitecture.api.CharacterServer
-import com.cd.cleanarchitecture.database.CharacterEntity
-import com.cd.cleanarchitecture.database.toCharacterServer
+import com.cd.cleanarchitecture.domain.Character
+import com.cd.cleanarchitecture.parcelable.toCharacterParcelable
 import com.cd.cleanarchitecture.utils.Constants
 import com.cd.cleanarchitecture.utils.startActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
-import java.lang.System.exit
-import java.util.Map.entry
 
 class MainActivity : AppCompatActivity() , BottomNavigationView.OnNavigationItemSelectedListener,
     CharacterListFragment.OnCharacterListFragmentListener,
@@ -65,16 +62,9 @@ class MainActivity : AppCompatActivity() , BottomNavigationView.OnNavigationItem
         }
     }
 
-    override fun openCharacterDetail(character: CharacterEntity) {
+    override fun openCharacterDetail(character: Character) {
         startActivity<CharacterDetailActivity> {
-            putExtra(Constants.EXTRA_CHARACTER, character.toCharacterServer())
-        }
-        overridePendingTransition(R.anim.entry, R.anim.exit)
-    }
-
-    override fun openCharacterDetail(character: CharacterServer) {
-        startActivity<CharacterDetailActivity> {
-            putExtra(Constants.EXTRA_CHARACTER, character)
+            putExtra(Constants.EXTRA_CHARACTER, character.toCharacterParcelable())
         }
         overridePendingTransition(R.anim.entry, R.anim.exit)
     }

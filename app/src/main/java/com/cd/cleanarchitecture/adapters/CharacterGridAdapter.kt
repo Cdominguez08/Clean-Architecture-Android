@@ -5,17 +5,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.cd.cleanarchitecture.R
 import com.cd.cleanarchitecture.api.CharacterServer
 import com.cd.cleanarchitecture.databinding.ItemGridCharacterBinding
+import com.cd.cleanarchitecture.domain.Character
 import com.cd.cleanarchitecture.utils.bindImageUrl
 import com.cd.cleanarchitecture.utils.bindingInflate
 import kotlinx.android.synthetic.main.item_grid_character.view.*
 
 class CharacterGridAdapter(
-    private val listener: (CharacterServer) -> Unit
+    private val listener: (Character) -> Unit
 ): RecyclerView.Adapter<CharacterGridAdapter.CharacterGridViewHolder>() {
 
-    private val characterList: MutableList<CharacterServer> = mutableListOf()
+    private val characterList: MutableList<Character> = mutableListOf()
 
-    fun addData(newData: List<CharacterServer>) {
+    fun addData(newData: List<Character>) {
         characterList.addAll(newData)
         notifyDataSetChanged()
     }
@@ -36,11 +37,11 @@ class CharacterGridAdapter(
 
     class CharacterGridViewHolder(
         private val dataBinding: ItemGridCharacterBinding,
-        private val listener: (CharacterServer) -> Unit
+        private val listener: (Character) -> Unit
     ): RecyclerView.ViewHolder(dataBinding.root) {
 
         //region Public Methods
-        fun bind(item: CharacterServer){
+        fun bind(item: Character){
             dataBinding.character = item
             itemView.character_image.bindImageUrl(
                 url = item.image,

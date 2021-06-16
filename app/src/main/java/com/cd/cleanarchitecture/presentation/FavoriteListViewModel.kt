@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.cd.cleanarchitecture.database.CharacterDao
 import com.cd.cleanarchitecture.database.CharacterEntity
+import com.cd.cleanarchitecture.domain.Character
 import com.cd.cleanarchitecture.usecases.GetAllFavoriteCharactersUseCase
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -15,7 +16,7 @@ class FavoriteListViewModel(
 ) : ViewModel() {
 
     sealed class FavoriteListNavigation{
-        data class ShowCharacterList(val characterList : List<CharacterEntity>) : FavoriteListNavigation()
+        data class ShowCharacterList(val characterList : List<Character>) : FavoriteListNavigation()
         object ShowEmptyListMessage : FavoriteListNavigation()
     }
 
@@ -25,12 +26,12 @@ class FavoriteListViewModel(
     private val _events = MutableLiveData<Event<FavoriteListNavigation>>()
     val events : LiveData<Event<FavoriteListNavigation>> get() = _events
 
-    private val _favoriteCharacterList : LiveData<List<CharacterEntity>>
+    private val _favoriteCharacterList : LiveData<List<Character>>
     get() = LiveDataReactiveStreams.fromPublisher(
         getAllFavoriteCharactersUseCase.invoke()
     )
 
-    val favoriteCharacterList : LiveData<List<CharacterEntity>> get() = _favoriteCharacterList
+    val favoriteCharacterList : LiveData<List<Character>> get() = _favoriteCharacterList
 
     /*
     disposable.add(
@@ -57,7 +58,7 @@ class FavoriteListViewModel(
         disposable.clear()
     }
 
-    fun onFavoriteCharacterList(list : List<CharacterEntity>){
+    fun onFavoriteCharacterList(list : List<Character>){
 
         if(list.isEmpty()){
             _events.value = Event(FavoriteListNavigation.ShowEmptyListMessage)

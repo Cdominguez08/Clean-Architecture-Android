@@ -6,6 +6,9 @@ import androidx.lifecycle.ViewModel
 import com.cd.cleanarchitecture.api.*
 import com.cd.cleanarchitecture.database.CharacterDao
 import com.cd.cleanarchitecture.database.CharacterEntity
+import com.cd.cleanarchitecture.database.toCharacterEntity
+import com.cd.cleanarchitecture.domain.Character
+import com.cd.cleanarchitecture.domain.Episode
 import com.cd.cleanarchitecture.usecases.GetEpisodeFromCharacterUseCase
 import com.cd.cleanarchitecture.usecases.GetFavoriteCharacterStatusUseCase
 import com.cd.cleanarchitecture.usecases.UpdateFavoriteCharacterStatusUseCase
@@ -16,14 +19,14 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 class CharacterDetailViewModel(
-    private val character: CharacterServer? = null,
+    private val character: Character? = null,
     private val getEpisodeFromCharacterUseCase: GetEpisodeFromCharacterUseCase,
     private val getFavoriteCharacterStatusUseCase: GetFavoriteCharacterStatusUseCase,
     private val updateFavoriteCharacterStatusUseCase: UpdateFavoriteCharacterStatusUseCase
 ) : ViewModel() {
 
     sealed class CharacterDetailNavigation {
-        data class ShowEpisodeServerList(val episodeList : List<EpisodeServer>) : CharacterDetailNavigation()
+        data class ShowEpisodeServerList(val episodeList : List<Episode>) : CharacterDetailNavigation()
         data class ShowCharacterDetailError(val error : Throwable) : CharacterDetailNavigation()
         object HideLoading : CharacterDetailNavigation()
         object ShowLoading : CharacterDetailNavigation()
@@ -32,8 +35,8 @@ class CharacterDetailViewModel(
 
     private val disposable = CompositeDisposable()
 
-    private val _characterValues = MutableLiveData<CharacterServer>()
-    val characterValues : LiveData<CharacterServer> get() = _characterValues
+    private val _characterValues = MutableLiveData<Character>()
+    val characterValues : LiveData<Character> get() = _characterValues
 
     private val _isFavorite = MutableLiveData<Boolean>()
     val isFavorite : LiveData<Boolean> get() = _isFavorite
@@ -74,10 +77,9 @@ class CharacterDetailViewModel(
     }
 
     fun onUpdateFavoriteCharacterStatus() {
-        val characterEntity : CharacterEntity = character!!.toCharacterEntity()
         disposable.add(
             updateFavoriteCharacterStatusUseCase
-                .invoke(characterEntity)
+                .invoke(character!!)
                 .subscribe { isFavorite ->
                     _isFavorite.value = isFavorite
                 }

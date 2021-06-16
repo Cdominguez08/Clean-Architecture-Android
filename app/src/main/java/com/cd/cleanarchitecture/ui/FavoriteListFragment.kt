@@ -17,6 +17,7 @@ import com.cd.cleanarchitecture.database.CharacterDao
 import com.cd.cleanarchitecture.database.CharacterDatabase
 import com.cd.cleanarchitecture.database.CharacterEntity
 import com.cd.cleanarchitecture.databinding.FragmentFavoriteListBinding
+import com.cd.cleanarchitecture.domain.Character
 import com.cd.cleanarchitecture.presentation.FavoriteListViewModel
 import com.cd.cleanarchitecture.usecases.GetAllFavoriteCharactersUseCase
 import com.cd.cleanarchitecture.utils.getViewModel
@@ -114,7 +115,7 @@ class FavoriteListFragment : Fragment() {
     //region Inner Classes & Interfaces
 
     interface OnFavoriteListFragmentListener {
-        fun openCharacterDetail(character: CharacterEntity)
+        fun openCharacterDetail(character: Character)
     }
 
     //endregion

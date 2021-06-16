@@ -15,6 +15,7 @@ import com.cd.cleanarchitecture.adapters.CharacterGridAdapter
 import com.cd.cleanarchitecture.api.*
 import com.cd.cleanarchitecture.api.APIConstants.BASE_API_URL
 import com.cd.cleanarchitecture.databinding.FragmentCharacterListBinding
+import com.cd.cleanarchitecture.domain.Character
 import com.cd.cleanarchitecture.presentation.CharacterListViewModel
 import com.cd.cleanarchitecture.usecases.GetAllCharactersUseCase
 import com.cd.cleanarchitecture.utils.getViewModel
@@ -139,7 +140,7 @@ class CharacterListFragment : Fragment() {
     //region Inner Classes & Interfaces
 
     interface OnCharacterListFragmentListener {
-        fun openCharacterDetail(character: CharacterServer)
+        fun openCharacterDetail(character: Character)
     }
 
     //endregion

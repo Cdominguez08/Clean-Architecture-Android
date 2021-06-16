@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.cd.cleanarchitecture.api.*
+import com.cd.cleanarchitecture.domain.Character
 import com.cd.cleanarchitecture.usecases.GetAllCharactersUseCase
 import io.reactivex.disposables.CompositeDisposable
 
@@ -86,7 +87,7 @@ class CharacterListViewModel(
 
     sealed class CharacterListNavigation{
         data class ShowCharacterError(val error : Throwable) : CharacterListNavigation()
-        data class ShowCharacterList(val characterList : List<CharacterServer>) : CharacterListNavigation()
+        data class ShowCharacterList(val characterList : List<Character>) : CharacterListNavigation()
         object HideLoading : CharacterListNavigation()
         object ShowLoading : CharacterListNavigation()
     }

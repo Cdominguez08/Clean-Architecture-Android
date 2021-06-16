@@ -6,7 +6,7 @@
     <data>
         <variable
             name="character"
-            type="com.cd.cleanarchitecture.database.CharacterEntity" />
+            type="com.cd.cleanarchitecture.domain.Character" />
     </data>
 
     <com.google.android.material.card.MaterialCardView

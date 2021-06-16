@@ -3,41 +3,40 @@ package com.cd.cleanarchitecture.api
 import com.cd.cleanarchitecture.database.CharacterEntity
 import com.cd.cleanarchitecture.database.LocationEntity
 import com.cd.cleanarchitecture.database.OriginEntity
+import com.cd.cleanarchitecture.domain.Character
+import com.cd.cleanarchitecture.domain.Episode
+import com.cd.cleanarchitecture.domain.Location
+import com.cd.cleanarchitecture.domain.Origin
 
-fun CharacterResponseServer.toCharacterServerList(): List<CharacterServer> = results.map {
+fun List<EpisodeServer>.toEpisodeDomainList() = map(EpisodeServer::toEpisodeDomain)
+
+fun CharacterResponseServer.toCharacterDomainList(): List<Character> = results.map {
     it.run{
-        CharacterServer(
+        Character(
             id,
             name,
             image,
             gender,
             species,
             status,
-            origin,
-            location,
+            origin.toOriginDomain(),
+            location.toLocationDomain(),
             episodeList.map { episode -> "$episode/" }
         )
     }
 }
 
-fun CharacterServer.toCharacterEntity() = CharacterEntity(
+fun OriginServer.toOriginDomain() = Origin(
+    name,
+    url
+)
+
+fun LocationServer.toLocationDomain() = Location(
+    name,
+    url
+)
+
+fun EpisodeServer.toEpisodeDomain() = Episode(
     id,
-    name,
-    image,
-    gender,
-    species,
-    status,
-    origin.toOriginEntity(),
-    location.toLocationEntity(),
-    episodeList
-)
-
-fun OriginServer.toOriginEntity() = OriginEntity(
-    name,
-    url
-)
-
-fun LocationServer.toLocationEntity() = LocationEntity(
-    name,
-    url
+    name
 )

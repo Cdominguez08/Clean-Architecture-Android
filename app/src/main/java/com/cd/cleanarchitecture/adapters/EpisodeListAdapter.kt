@@ -5,15 +5,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.cd.cleanarchitecture.R
 import com.cd.cleanarchitecture.api.EpisodeServer
 import com.cd.cleanarchitecture.databinding.ItemListEpisodeBinding
+import com.cd.cleanarchitecture.domain.Episode
 import com.cd.cleanarchitecture.utils.bindingInflate
 
 class EpisodeListAdapter(
-    private val listener: (EpisodeServer) -> Unit
+    private val listener: (Episode) -> Unit
 ): RecyclerView.Adapter<EpisodeListAdapter.EpisodeListViewHolder>() {
 
-    private val episodeList: MutableList<EpisodeServer> = mutableListOf()
+    private val episodeList: MutableList<Episode> = mutableListOf()
 
-    fun updateData(newData: List<EpisodeServer>) {
+    fun updateData(newData: List<Episode>) {
         episodeList.clear()
         episodeList.addAll(newData)
         notifyDataSetChanged()
@@ -33,11 +34,11 @@ class EpisodeListAdapter(
 
     class EpisodeListViewHolder(
         private val dataBinding: ItemListEpisodeBinding,
-        private val listener: (EpisodeServer) -> Unit
+        private val listener: (Episode) -> Unit
     ): RecyclerView.ViewHolder(dataBinding.root) {
 
         //region Public Methods
-        fun bind(item: EpisodeServer){
+        fun bind(item: Episode){
             dataBinding.episode = item
             itemView.setOnClickListener { listener(item) }
         }
