@@ -1,8 +1,6 @@
 package com.cd.cleanarchitecture.database
 
-import com.cd.cleanarchitecture.api.CharacterServer
-import com.cd.cleanarchitecture.api.LocationServer
-import com.cd.cleanarchitecture.api.OriginServer
+
 import com.cd.cleanarchitecture.domain.Character
 import com.cd.cleanarchitecture.domain.Location
 import com.cd.cleanarchitecture.domain.Origin

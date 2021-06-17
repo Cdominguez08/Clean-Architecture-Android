@@ -6,15 +6,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.room.Update
 import com.cd.cleanarchitecture.R
 import com.cd.cleanarchitecture.adapters.EpisodeListAdapter
 import com.cd.cleanarchitecture.api.*
 import com.cd.cleanarchitecture.api.APIConstants.BASE_API_URL
 import com.cd.cleanarchitecture.data.*
-import com.cd.cleanarchitecture.database.CharacterDao
-import com.cd.cleanarchitecture.database.CharacterDatabase
-import com.cd.cleanarchitecture.database.CharacterRoomDataSource
+import com.cd.cleanarchitecture.databasemanager.CharacterDatabase
+import com.cd.cleanarchitecture.databasemanager.CharacterRoomDataSource
 import com.cd.cleanarchitecture.databinding.ActivityCharacterDetailBinding
 import com.cd.cleanarchitecture.domain.Character
 import com.cd.cleanarchitecture.parcelable.CharacterParcelable

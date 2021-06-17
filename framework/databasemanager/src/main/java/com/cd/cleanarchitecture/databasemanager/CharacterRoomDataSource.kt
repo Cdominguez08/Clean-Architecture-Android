@@ -1,6 +1,10 @@
-package com.cd.cleanarchitecture.database
+package com.cd.cleanarchitecture.databasemanager
 
 import com.cd.cleanarchitecture.data.LocalCharacterDataSource
+import com.cd.cleanarchitecture.database.CharacterDao
+import com.cd.cleanarchitecture.database.CharacterEntity
+import com.cd.cleanarchitecture.database.toCharacterDomainList
+import com.cd.cleanarchitecture.database.toCharacterEntity
 import com.cd.cleanarchitecture.domain.Character
 import io.reactivex.Flowable
 import io.reactivex.Maybe

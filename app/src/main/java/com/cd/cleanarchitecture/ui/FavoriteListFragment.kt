@@ -17,8 +17,8 @@ import com.cd.cleanarchitecture.api.CharacterRetrofitDataSource
 import com.cd.cleanarchitecture.data.CharacterRepository
 import com.cd.cleanarchitecture.data.LocalCharacterDataSource
 import com.cd.cleanarchitecture.data.RemoteCharacterDataSource
-import com.cd.cleanarchitecture.database.CharacterDatabase
-import com.cd.cleanarchitecture.database.CharacterRoomDataSource
+import com.cd.cleanarchitecture.databasemanager.CharacterDatabase
+import com.cd.cleanarchitecture.databasemanager.CharacterRoomDataSource
 import com.cd.cleanarchitecture.databinding.FragmentFavoriteListBinding
 import com.cd.cleanarchitecture.domain.Character
 import com.cd.cleanarchitecture.presentation.FavoriteListViewModel
