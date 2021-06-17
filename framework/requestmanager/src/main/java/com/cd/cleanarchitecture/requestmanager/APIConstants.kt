@@ -1,4 +1,4 @@
-package com.cd.cleanarchitecture.api
+package com.cd.cleanarchitecture.requestmanager
 
 object APIConstants {
     const val BASE_API_URL = "https://rickandmortyapi.com/api/"

@@ -1,17 +1,17 @@
 package com.cd.cleanarchitecture.api
 
 import android.os.Parcelable
-import com.cd.cleanarchitecture.api.APIConstants.KEY_EPISODE
-import com.cd.cleanarchitecture.api.APIConstants.KEY_GENDER
-import com.cd.cleanarchitecture.api.APIConstants.KEY_ID
-import com.cd.cleanarchitecture.api.APIConstants.KEY_IMAGE
-import com.cd.cleanarchitecture.api.APIConstants.KEY_LOCATION
-import com.cd.cleanarchitecture.api.APIConstants.KEY_NAME
-import com.cd.cleanarchitecture.api.APIConstants.KEY_ORIGIN
-import com.cd.cleanarchitecture.api.APIConstants.KEY_RESULTS
-import com.cd.cleanarchitecture.api.APIConstants.KEY_SPECIES
-import com.cd.cleanarchitecture.api.APIConstants.KEY_STATUS
-import com.cd.cleanarchitecture.api.APIConstants.KEY_URL
+import com.cd.cleanarchitecture.requestmanager.APIConstants.KEY_EPISODE
+import com.cd.cleanarchitecture.requestmanager.APIConstants.KEY_GENDER
+import com.cd.cleanarchitecture.requestmanager.APIConstants.KEY_ID
+import com.cd.cleanarchitecture.requestmanager.APIConstants.KEY_IMAGE
+import com.cd.cleanarchitecture.requestmanager.APIConstants.KEY_LOCATION
+import com.cd.cleanarchitecture.requestmanager.APIConstants.KEY_NAME
+import com.cd.cleanarchitecture.requestmanager.APIConstants.KEY_ORIGIN
+import com.cd.cleanarchitecture.requestmanager.APIConstants.KEY_RESULTS
+import com.cd.cleanarchitecture.requestmanager.APIConstants.KEY_SPECIES
+import com.cd.cleanarchitecture.requestmanager.APIConstants.KEY_STATUS
+import com.cd.cleanarchitecture.requestmanager.APIConstants.KEY_URL
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 

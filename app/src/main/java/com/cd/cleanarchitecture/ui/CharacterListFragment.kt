@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.cd.cleanarchitecture.R
 import com.cd.cleanarchitecture.adapters.CharacterGridAdapter
 import com.cd.cleanarchitecture.api.*
-import com.cd.cleanarchitecture.api.APIConstants.BASE_API_URL
+import com.cd.cleanarchitecture.requestmanager.APIConstants.BASE_API_URL
 import com.cd.cleanarchitecture.data.CharacterRepository
 import com.cd.cleanarchitecture.data.LocalCharacterDataSource
 import com.cd.cleanarchitecture.data.RemoteCharacterDataSource

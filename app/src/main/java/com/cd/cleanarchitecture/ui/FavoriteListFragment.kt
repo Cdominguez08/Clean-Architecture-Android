@@ -11,7 +11,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.cd.cleanarchitecture.R
 import com.cd.cleanarchitecture.adapters.FavoriteListAdapter
-import com.cd.cleanarchitecture.api.APIConstants.BASE_API_URL
+import com.cd.cleanarchitecture.requestmanager.APIConstants.BASE_API_URL
 import com.cd.cleanarchitecture.api.CharacterRequest
 import com.cd.cleanarchitecture.api.CharacterRetrofitDataSource
 import com.cd.cleanarchitecture.data.CharacterRepository

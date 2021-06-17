@@ -9,7 +9,7 @@ import androidx.lifecycle.Observer
 import com.cd.cleanarchitecture.R
 import com.cd.cleanarchitecture.adapters.EpisodeListAdapter
 import com.cd.cleanarchitecture.api.*
-import com.cd.cleanarchitecture.api.APIConstants.BASE_API_URL
+import com.cd.cleanarchitecture.requestmanager.APIConstants.BASE_API_URL
 import com.cd.cleanarchitecture.data.*
 import com.cd.cleanarchitecture.databasemanager.CharacterDatabase
 import com.cd.cleanarchitecture.databasemanager.CharacterRoomDataSource

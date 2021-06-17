@@ -1,6 +1,6 @@
 package com.cd.cleanarchitecture.api
 
-import com.cd.cleanarchitecture.api.APIConstants.ENDPOINT_CHARACTER
+import com.cd.cleanarchitecture.requestmanager.APIConstants.ENDPOINT_CHARACTER
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Query
