@@ -6,7 +6,7 @@ import com.cd.cleanarchitecture.R
 import com.cd.cleanarchitecture.database.CharacterEntity
 import com.cd.cleanarchitecture.databinding.ItemGridFavoriteCharacterBinding
 import com.cd.cleanarchitecture.domain.Character
-import com.cd.cleanarchitecture.utils.bindImageUrl
+import com.cd.cleanarchitecture.framework.bindImageUrl
 import com.cd.cleanarchitecture.utils.bindingInflate
 import kotlinx.android.synthetic.main.item_grid_favorite_character.view.*
 

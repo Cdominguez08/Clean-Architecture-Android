@@ -3,7 +3,6 @@ package com.cd.cleanarchitecture.adapters
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.cd.cleanarchitecture.R
-import com.cd.cleanarchitecture.api.EpisodeServer
 import com.cd.cleanarchitecture.databinding.ItemListEpisodeBinding
 import com.cd.cleanarchitecture.domain.Episode
 import com.cd.cleanarchitecture.utils.bindingInflate

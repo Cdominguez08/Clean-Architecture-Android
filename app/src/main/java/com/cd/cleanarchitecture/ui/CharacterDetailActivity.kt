@@ -24,7 +24,7 @@ import com.cd.cleanarchitecture.usescases.GetEpisodeFromCharacterUseCase
 import com.cd.cleanarchitecture.usescases.GetFavoriteCharacterStatusUseCase
 import com.cd.cleanarchitecture.usescases.UpdateFavoriteCharacterStatusUseCase
 import com.cd.cleanarchitecture.utils.Constants
-import com.cd.cleanarchitecture.utils.bindCircularImageUrl
+import com.cd.cleanarchitecture.framework.bindCircularImageUrl
 import com.cd.cleanarchitecture.utils.getViewModel
 import com.cd.cleanarchitecture.utils.showLongToast
 import kotlinx.android.synthetic.main.activity_character_detail.*

@@ -6,7 +6,7 @@ import com.cd.cleanarchitecture.R
 import com.cd.cleanarchitecture.api.CharacterServer
 import com.cd.cleanarchitecture.databinding.ItemGridCharacterBinding
 import com.cd.cleanarchitecture.domain.Character
-import com.cd.cleanarchitecture.utils.bindImageUrl
+import com.cd.cleanarchitecture.framework.bindImageUrl
 import com.cd.cleanarchitecture.utils.bindingInflate
 import kotlinx.android.synthetic.main.item_grid_character.view.*
 
