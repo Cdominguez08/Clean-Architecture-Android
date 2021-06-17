@@ -9,9 +9,9 @@ import com.cd.cleanarchitecture.database.CharacterEntity
 import com.cd.cleanarchitecture.database.toCharacterEntity
 import com.cd.cleanarchitecture.domain.Character
 import com.cd.cleanarchitecture.domain.Episode
-import com.cd.cleanarchitecture.usecases.GetEpisodeFromCharacterUseCase
-import com.cd.cleanarchitecture.usecases.GetFavoriteCharacterStatusUseCase
-import com.cd.cleanarchitecture.usecases.UpdateFavoriteCharacterStatusUseCase
+import com.cd.cleanarchitecture.usescases.GetEpisodeFromCharacterUseCase
+import com.cd.cleanarchitecture.usescases.GetFavoriteCharacterStatusUseCase
+import com.cd.cleanarchitecture.usescases.UpdateFavoriteCharacterStatusUseCase
 import io.reactivex.Maybe
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.Observable

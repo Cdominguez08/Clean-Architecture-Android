@@ -22,7 +22,7 @@ import com.cd.cleanarchitecture.database.CharacterRoomDataSource
 import com.cd.cleanarchitecture.databinding.FragmentCharacterListBinding
 import com.cd.cleanarchitecture.domain.Character
 import com.cd.cleanarchitecture.presentation.CharacterListViewModel
-import com.cd.cleanarchitecture.usecases.GetAllCharactersUseCase
+import com.cd.cleanarchitecture.usescases.GetAllCharactersUseCase
 import com.cd.cleanarchitecture.utils.getViewModel
 import com.cd.cleanarchitecture.utils.setItemDecorationSpacing
 import com.cd.cleanarchitecture.utils.showLongToast

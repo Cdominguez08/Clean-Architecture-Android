@@ -22,7 +22,7 @@ import com.cd.cleanarchitecture.database.CharacterRoomDataSource
 import com.cd.cleanarchitecture.databinding.FragmentFavoriteListBinding
 import com.cd.cleanarchitecture.domain.Character
 import com.cd.cleanarchitecture.presentation.FavoriteListViewModel
-import com.cd.cleanarchitecture.usecases.GetAllFavoriteCharactersUseCase
+import com.cd.cleanarchitecture.usescases.GetAllFavoriteCharactersUseCase
 import com.cd.cleanarchitecture.utils.getViewModel
 import com.cd.cleanarchitecture.utils.setItemDecorationSpacing
 import kotlinx.android.synthetic.main.fragment_favorite_list.*

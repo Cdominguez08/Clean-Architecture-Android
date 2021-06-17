@@ -20,9 +20,9 @@ import com.cd.cleanarchitecture.domain.Character
 import com.cd.cleanarchitecture.parcelable.CharacterParcelable
 import com.cd.cleanarchitecture.parcelable.toCharacterDomain
 import com.cd.cleanarchitecture.presentation.CharacterDetailViewModel
-import com.cd.cleanarchitecture.usecases.GetEpisodeFromCharacterUseCase
-import com.cd.cleanarchitecture.usecases.GetFavoriteCharacterStatusUseCase
-import com.cd.cleanarchitecture.usecases.UpdateFavoriteCharacterStatusUseCase
+import com.cd.cleanarchitecture.usescases.GetEpisodeFromCharacterUseCase
+import com.cd.cleanarchitecture.usescases.GetFavoriteCharacterStatusUseCase
+import com.cd.cleanarchitecture.usescases.UpdateFavoriteCharacterStatusUseCase
 import com.cd.cleanarchitecture.utils.Constants
 import com.cd.cleanarchitecture.utils.bindCircularImageUrl
 import com.cd.cleanarchitecture.utils.getViewModel

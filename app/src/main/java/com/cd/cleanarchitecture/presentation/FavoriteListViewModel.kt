@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.cd.cleanarchitecture.database.CharacterDao
 import com.cd.cleanarchitecture.database.CharacterEntity
 import com.cd.cleanarchitecture.domain.Character
-import com.cd.cleanarchitecture.usecases.GetAllFavoriteCharactersUseCase
+import com.cd.cleanarchitecture.usescases.GetAllFavoriteCharactersUseCase
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 

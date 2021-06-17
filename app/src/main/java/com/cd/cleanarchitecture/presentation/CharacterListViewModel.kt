@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.cd.cleanarchitecture.api.*
 import com.cd.cleanarchitecture.domain.Character
-import com.cd.cleanarchitecture.usecases.GetAllCharactersUseCase
+import com.cd.cleanarchitecture.usescases.GetAllCharactersUseCase
 import io.reactivex.disposables.CompositeDisposable
 
 class CharacterListViewModel(
