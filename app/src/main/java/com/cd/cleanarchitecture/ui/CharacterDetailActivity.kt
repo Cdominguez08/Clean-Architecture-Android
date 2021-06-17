@@ -9,11 +9,12 @@ import androidx.lifecycle.Observer
 import androidx.room.Update
 import com.cd.cleanarchitecture.R
 import com.cd.cleanarchitecture.adapters.EpisodeListAdapter
+import com.cd.cleanarchitecture.api.*
 import com.cd.cleanarchitecture.api.APIConstants.BASE_API_URL
-import com.cd.cleanarchitecture.api.CharacterServer
-import com.cd.cleanarchitecture.api.EpisodeRequest
+import com.cd.cleanarchitecture.data.*
 import com.cd.cleanarchitecture.database.CharacterDao
 import com.cd.cleanarchitecture.database.CharacterDatabase
+import com.cd.cleanarchitecture.database.CharacterRoomDataSource
 import com.cd.cleanarchitecture.databinding.ActivityCharacterDetailBinding
 import com.cd.cleanarchitecture.domain.Character
 import com.cd.cleanarchitecture.parcelable.CharacterParcelable
@@ -39,20 +40,40 @@ class CharacterDetailActivity : AppCompatActivity() {
         EpisodeRequest(BASE_API_URL)
     }
 
-    private val characterDao: CharacterDao by lazy {
-        CharacterDatabase.getDatabase(application).characterDao()
+    private val episodeRemoteDataSource : RemoteEpisodeDataSource by lazy {
+        EpisodeRetrofitDataSource(episodeRequest)
+    }
+
+    private val episodeRepository : EpisodeRepository by lazy{
+        EpisodeRepository(episodeRemoteDataSource)
     }
 
     private val getEpisodeFromCharacterUseCase : GetEpisodeFromCharacterUseCase by lazy {
-        GetEpisodeFromCharacterUseCase(episodeRequest)
+        GetEpisodeFromCharacterUseCase(episodeRepository)
+    }
+
+    private val characterRequest : CharacterRequest by lazy {
+        CharacterRequest(BASE_API_URL)
+    }
+
+    private val remoteCharacterDataSource : RemoteCharacterDataSource by lazy {
+        CharacterRetrofitDataSource(characterRequest)
+    }
+
+    private val localCharacterDataSource : LocalCharacterDataSource by lazy {
+        CharacterRoomDataSource(CharacterDatabase.getDatabase(applicationContext))
+    }
+
+    private val characterRepository : CharacterRepository by lazy {
+        CharacterRepository(remoteCharacterDataSource, localCharacterDataSource)
     }
 
     private val getFavoriteCharacterStatusUseCase : GetFavoriteCharacterStatusUseCase by lazy{
-        GetFavoriteCharacterStatusUseCase(characterDao)
+        GetFavoriteCharacterStatusUseCase(characterRepository)
     }
 
     private val updateFavoriteCharacterStatusUseCase : UpdateFavoriteCharacterStatusUseCase by lazy {
-        UpdateFavoriteCharacterStatusUseCase(characterDao)
+        UpdateFavoriteCharacterStatusUseCase(characterRepository)
     }
 
     private val viewModel : CharacterDetailViewModel by lazy {

@@ -13,18 +13,18 @@ import com.cd.cleanarchitecture.R
 import com.cd.cleanarchitecture.adapters.FavoriteListAdapter
 import com.cd.cleanarchitecture.api.APIConstants.BASE_API_URL
 import com.cd.cleanarchitecture.api.CharacterRequest
-import com.cd.cleanarchitecture.database.CharacterDao
+import com.cd.cleanarchitecture.api.CharacterRetrofitDataSource
+import com.cd.cleanarchitecture.data.CharacterRepository
+import com.cd.cleanarchitecture.data.LocalCharacterDataSource
+import com.cd.cleanarchitecture.data.RemoteCharacterDataSource
 import com.cd.cleanarchitecture.database.CharacterDatabase
-import com.cd.cleanarchitecture.database.CharacterEntity
+import com.cd.cleanarchitecture.database.CharacterRoomDataSource
 import com.cd.cleanarchitecture.databinding.FragmentFavoriteListBinding
 import com.cd.cleanarchitecture.domain.Character
 import com.cd.cleanarchitecture.presentation.FavoriteListViewModel
 import com.cd.cleanarchitecture.usecases.GetAllFavoriteCharactersUseCase
 import com.cd.cleanarchitecture.utils.getViewModel
 import com.cd.cleanarchitecture.utils.setItemDecorationSpacing
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_favorite_list.*
 
 class FavoriteListFragment : Fragment() {
@@ -33,13 +33,25 @@ class FavoriteListFragment : Fragment() {
 
     private lateinit var favoriteListAdapter: FavoriteListAdapter
     private lateinit var listener: OnFavoriteListFragmentListener
-    private lateinit var characterRequest: CharacterRequest
-    private val characterDao: CharacterDao by lazy {
-        CharacterDatabase.getDatabase(activity!!.applicationContext).characterDao()
+
+    private val characterRequest : CharacterRequest by lazy {
+        CharacterRequest(BASE_API_URL)
+    }
+
+    private val remoteCharacterDataSource : RemoteCharacterDataSource by lazy {
+        CharacterRetrofitDataSource(characterRequest)
+    }
+
+    private val localCharacterDataSource : LocalCharacterDataSource by lazy {
+        CharacterRoomDataSource(CharacterDatabase.getDatabase(activity!!.applicationContext))
+    }
+
+    private val characterRepository : CharacterRepository by lazy {
+        CharacterRepository(remoteCharacterDataSource, localCharacterDataSource)
     }
 
     private val getAllFavoriteCharactersUseCase: GetAllFavoriteCharactersUseCase by lazy {
-        GetAllFavoriteCharactersUseCase(characterDao)
+        GetAllFavoriteCharactersUseCase(characterRepository)
     }
 
     private val viewModel : FavoriteListViewModel by lazy {
@@ -65,8 +77,6 @@ class FavoriteListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        characterRequest = CharacterRequest(BASE_API_URL)
 
         return DataBindingUtil.inflate<FragmentFavoriteListBinding>(
             inflater,

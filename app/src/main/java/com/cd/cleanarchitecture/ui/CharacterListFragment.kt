@@ -14,6 +14,11 @@ import com.cd.cleanarchitecture.R
 import com.cd.cleanarchitecture.adapters.CharacterGridAdapter
 import com.cd.cleanarchitecture.api.*
 import com.cd.cleanarchitecture.api.APIConstants.BASE_API_URL
+import com.cd.cleanarchitecture.data.CharacterRepository
+import com.cd.cleanarchitecture.data.LocalCharacterDataSource
+import com.cd.cleanarchitecture.data.RemoteCharacterDataSource
+import com.cd.cleanarchitecture.database.CharacterDatabase
+import com.cd.cleanarchitecture.database.CharacterRoomDataSource
 import com.cd.cleanarchitecture.databinding.FragmentCharacterListBinding
 import com.cd.cleanarchitecture.domain.Character
 import com.cd.cleanarchitecture.presentation.CharacterListViewModel
@@ -35,8 +40,20 @@ class CharacterListFragment : Fragment() {
         CharacterRequest(BASE_API_URL)
     }
 
+    private val remoteCharacterDataSource : RemoteCharacterDataSource by lazy {
+        CharacterRetrofitDataSource(characterRequest)
+    }
+
+    private val localCharacterDataSource : LocalCharacterDataSource by lazy {
+        CharacterRoomDataSource(CharacterDatabase.getDatabase(activity!!.applicationContext))
+    }
+
+    private val characterRepository : CharacterRepository by lazy {
+        CharacterRepository(remoteCharacterDataSource,localCharacterDataSource)
+    }
+
     private val getAllCharactersUseCase : GetAllCharactersUseCase by lazy {
-        GetAllCharactersUseCase(characterRequest)
+        GetAllCharactersUseCase(characterRepository)
     }
 
     private val viewModel : CharacterListViewModel by lazy {

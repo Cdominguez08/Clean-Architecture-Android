@@ -1,5 +1,6 @@
 package com.cd.cleanarchitecture.usecases
 
+import com.cd.cleanarchitecture.data.CharacterRepository
 import com.cd.cleanarchitecture.database.CharacterDao
 import com.cd.cleanarchitecture.database.CharacterEntity
 import com.cd.cleanarchitecture.database.toCharacterEntity
@@ -9,23 +10,10 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 class UpdateFavoriteCharacterStatusUseCase(
-    private val characterDao: CharacterDao
+    private val characterRepository: CharacterRepository
 ) {
 
     fun invoke(character: Character) : Maybe<Boolean>{
-
-        val characterEntity = character.toCharacterEntity()
-        return characterDao.getCharacterById(characterEntity.id)
-            .isEmpty
-            .flatMapMaybe { isEmpty ->
-                if(isEmpty){
-                    characterDao.insertCharacter(characterEntity)
-                }else{
-                    characterDao.deleteCharacter(characterEntity)
-                }
-                Maybe.just(isEmpty)
-            }
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeOn(Schedulers.io())
+        return characterRepository.updateFavoriteCharacrter(character)
     }
 }

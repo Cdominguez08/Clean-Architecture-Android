@@ -1,5 +1,6 @@
 package com.cd.cleanarchitecture.usecases
 
+import com.cd.cleanarchitecture.data.CharacterRepository
 import com.cd.cleanarchitecture.database.CharacterDao
 import com.cd.cleanarchitecture.database.CharacterEntity
 import com.cd.cleanarchitecture.database.toCharacterDomain
@@ -9,14 +10,8 @@ import io.reactivex.Flowable
 import io.reactivex.schedulers.Schedulers
 
 class GetAllFavoriteCharactersUseCase(
-    private val characterDao: CharacterDao
+    private val characterRepository: CharacterRepository
 ) {
 
-    fun invoke() : Flowable<List<Character>> = characterDao
-        .getAllFavoriteCharacters()
-        .map(List<CharacterEntity>::toCharacterDomainList)
-        .onErrorReturn {
-            emptyList()
-        }
-        .subscribeOn(Schedulers.io())
+    fun invoke() : Flowable<List<Character>> = characterRepository.getAllFavoriteCharacter()
 }
